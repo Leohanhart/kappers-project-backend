@@ -3,9 +3,10 @@ const behandeling = require("../handler/behandeling"),
     router = express()
 
 router.post("/", behandeling.New);
-router.get("/All", behandeling.GetAll);
-router.get("/One", behandeling.GetOne);
-router.put("/", behandeling.Update);
+router.get("/", behandeling.GetAll);
+router.get("/:id", behandeling.GetOne);
+router.put("/:id", behandeling.Update);
+router.delete("/:id", behandeling.Delete);
 
 
     module.exports = router;

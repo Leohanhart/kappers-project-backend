@@ -1,0 +1,149 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "version": "0.0.1",
+        "title": "API kappers project",
+        "description": "API voor kappers project",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/afspraak": {
+            "post": {
+                "tags": [
+                    "afspraak"
+                ],
+                "description": "make a reservation",
+                "parameters": [
+                    {
+                        "name": "content",
+                        "in": "body",
+                        "description": "insert behandeling_id, datum, totale_prijs, begin_tijd, eind_tijd, totale_tijd, kapper_id ",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "afspraak": {
+                                    "properties": {
+                                        "behandeling_id": {
+                                            "type": "string"
+                                        },
+                                        "persoon_id": {
+                                            "type": "string"
+                                        },
+                                        "kapper_id": {
+                                            "type": "string"
+                                        },
+                                        "datum": {
+                                            "type": "string"
+                                        },
+                                        "totale_prijs": {
+                                            "type": "number"
+                                        },
+                                        "begin_tijd": {
+                                            "type": "string"
+                                        },
+                                        "eind_tijd": {
+                                            "type": "string"
+                                        },
+                                        "totale_tijd": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "afspraak"
+                ],
+                "summary": "",
+                "description": "Get all reservations",
+                "responses": {
+                    "200": {
+                        "description": "Get all reservations",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "behandeling_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "persoon_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "kapper_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "datum": {
+                                                        "type": "string"
+                                                    },
+                                                    "totale_prijs": {
+                                                        "type": "number"
+                                                    },
+                                                    "begin_tijd": {
+                                                        "type": "string"
+                                                    },
+                                                    "eind_tijd": {
+                                                        "type": "string"
+                                                    },
+                                                    "totale_tijd": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/afspraak/{id}": {
+            "get": {
+                "tags": [
+                    "afspraak"
+                ],
+                "summary": "Find reservation by ID",
+                "description": "Returns a single reservation",
+                "operationId": "GetOne",
+                "produces": [
+                    "application/xml",
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of reservation to return",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        }
+    }
+}

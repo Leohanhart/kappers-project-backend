@@ -11,11 +11,9 @@ const express = require("express"),
     vesting = require("./routes/vesting_routes")
     
 
+const swagger = require("swagger-ui-express")
+const swaggerdocument = require("./swagger.json")
 
-const swaggerUi = require('swagger-ui-express');
-YAML = require('yamljs');
-const swaggerDocument = YAML.load('./swagger.YAML');
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(bodyparser.json());
 
@@ -27,11 +25,12 @@ app.use("/api/persoon", persoon)
 app.use("/api/rooster", rooster)
 app.use("/api/skills", skills)
 app.use("/api/vesting", vesting)
-
 app.listen(3000, () => {
     console.log("server staat aan")
 })
 
+app.use('/api-docs', swagger.serve)
+app.use('/api-docs', swagger.setup(swaggerdocument))
 
 
 
