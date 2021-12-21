@@ -31,39 +31,9 @@
                     {
                         "name": "content",
                         "in": "body",
-                        "description": "insert behandeling_id, datum, totale_prijs, begin_tijd, eind_tijd, totale_tijd, kapper_id ",
+                        "description": "insert behandeling_id, kapper_id, persoon_id, datum, totale_prijs, begin_tijd, eind_tijd, totale_tijd, kapper_id ",
                         "schema": {
-                            "type": "object",
-                            "properties": {
-                                "afspraak": {
-                                    "properties": {
-                                        "behandeling_id": {
-                                            "type": "string"
-                                        },
-                                        "persoon_id": {
-                                            "type": "string"
-                                        },
-                                        "kapper_id": {
-                                            "type": "string"
-                                        },
-                                        "datum": {
-                                            "type": "string"
-                                        },
-                                        "totale_prijs": {
-                                            "type": "number"
-                                        },
-                                        "begin_tijd": {
-                                            "type": "string"
-                                        },
-                                        "eind_tijd": {
-                                            "type": "string"
-                                        },
-                                        "totale_tijd": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
+                            "$ref": "#/definitions/P_afspraak"
                         }
                     }
                 ]
@@ -80,41 +50,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "properties": {
-                                        "data": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                    "behandeling_id": {
-                                                        "type": "string"
-                                                    },
-                                                    "persoon_id": {
-                                                        "type": "string"
-                                                    },
-                                                    "kapper_id": {
-                                                        "type": "string"
-                                                    },
-                                                    "datum": {
-                                                        "type": "string"
-                                                    },
-                                                    "totale_prijs": {
-                                                        "type": "number"
-                                                    },
-                                                    "begin_tijd": {
-                                                        "type": "string"
-                                                    },
-                                                    "eind_tijd": {
-                                                        "type": "string"
-                                                    },
-                                                    "totale_tijd": {
-                                                        "type": "string"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
+                                    "$ref": "#/definitions/afspraak"
                                 }
                             }
                         }
@@ -131,7 +67,6 @@
                 "description": "Returns a single reservation",
                 "operationId": "GetOne",
                 "produces": [
-                    "application/xml",
                     "application/json"
                 ],
                 "parameters": [
@@ -142,7 +77,801 @@
                         "required": true,
                         "type": "string"
                     }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get one reservations",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/afspraak"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "afspraak"
+                ],
+                "summary": "Update reservation by ID",
+                "description": "Update a single reservation",
+                "operationId": "Update",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of reservation to update",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update reservations",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/P_afspraak"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "afspraak"
+                ],
+                "summary": "Delete reservation by ID",
+                "description": "Delete a single reservation",
+                "operationId": "Delete",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of reservation to Delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete reservations",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/afspraak"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/behandeling": {
+            "post": {
+                "tags": [
+                    "treatment"
+                ],
+                "description": "insert treatment",
+                "parameters": [
+                    {
+                        "name": "content",
+                        "in": "body",
+                        "description": "insert type_behandeling, behandelduur, prijs",
+                        "schema": {
+                            "$ref": "#/definitions/P_treatment"
+                        }
+                    }
                 ]
+            },
+            "get": {
+                "tags": [
+                    "treatment"
+                ],
+                "summary": "",
+                "description": "Get all treatments",
+                "responses": {
+                    "200": {
+                        "description": "Get all treatment",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/treatment"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/treatment/{id}": {
+            "get": {
+                "tags": [
+                    "treatment"
+                ],
+                "summary": "Find treatment by ID",
+                "description": "Returns a single treatment",
+                "operationId": "GetOne",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of treatment to return",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get one treatment",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/treatment"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "treatment"
+                ],
+                "summary": "Update treatment by ID",
+                "description": "Update a single treatment",
+                "operationId": "Update",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of treatment to update",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update treatment",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/P_treatment"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "treatment"
+                ],
+                "summary": "Delete treatment by ID",
+                "description": "Delete a single treatment",
+                "operationId": "Delete",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of treatment to Delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete treatment",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/treatment"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/kapper": {
+            "post": {
+                "tags": [
+                    "barber"
+                ],
+                "description": "make a reservation",
+                "parameters": [
+                    {
+                        "name": "content",
+                        "in": "body",
+                        "description": "insert k_voornaam, k_achternaam, k_email, k_telefoonnummer",
+                        "schema": {
+                            "$ref": "#/definitions/P_barber"
+                        }
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "barber"
+                ],
+                "summary": "",
+                "description": "Get all barbers",
+                "responses": {
+                    "200": {
+                        "description": "Get all barbers",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/barber"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/kapper/{id}": {
+            "get": {
+                "tags": [
+                    "barber"
+                ],
+                "summary": "Find barber by ID",
+                "description": "Returns a single barber",
+                "operationId": "GetOne",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of barber to return",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get one barber",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/barber"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "barber"
+                ],
+                "summary": "Update barber by ID",
+                "description": "Update a single barber",
+                "operationId": "Update",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of barber to update",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update barber",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/P_barber"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "barber"
+                ],
+                "summary": "Delete barber by ID",
+                "description": "Delete a single barber",
+                "operationId": "Delete",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of barber to Delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete barber",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/barber"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },"/api/persoon": {
+            "post": {
+                "tags": [
+                    "persoon"
+                ],
+                "description": "make a reservation",
+                "parameters": [
+                    {
+                        "name": "content",
+                        "in": "body",
+                        "description": "insert voornaam, achternaam, email, telefoonnummer",
+                        "schema": {
+                            "$ref": "#/definitions/P_persoon"
+                        }
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "persoon"
+                ],
+                "summary": "",
+                "description": "Get all personen",
+                "responses": {
+                    "200": {
+                        "description": "Get all personen",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/persoon"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/persoon/{id}": {
+            "get": {
+                "tags": [
+                    "persoon"
+                ],
+                "summary": "Find persoon by ID",
+                "description": "Returns a single persoon",
+                "operationId": "GetOne",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of barber to return",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get one persoon",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/persoon"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "persoon"
+                ],
+                "summary": "Update persoon by ID",
+                "description": "Update a single persoon",
+                "operationId": "Update",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of persoon to update",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update persoon",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/P_persoon"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "persoon"
+                ],
+                "summary": "Delete persoon by ID",
+                "description": "Delete a single persoon",
+                "operationId": "Delete",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of persoon to Delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete persoon",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/persoon"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },"/api/rooster": {
+            "post": {
+                "tags": [
+                    "rooster"
+                ],
+                "description": "make a rooster",
+                "parameters": [
+                    {
+                        "name": "content",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/rooster"
+                        }
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "rooster"
+                ],
+                "summary": "",
+                "description": "Get all roosters",
+                "responses": {
+                    "200": {
+                        "description": "Get all roosters",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/rooster"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/rooster/{id}": {
+            "get": {
+                "tags": [
+                    "rooster"
+                ],
+                "summary": "Find rooster by ID",
+                "description": "Returns a single rooster",
+                "operationId": "GetOne",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of rooster to return",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get one rooster",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/rooster"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "rooster"
+                ],
+                "summary": "Update rooster by ID",
+                "description": "Update a single rooster",
+                "operationId": "Update",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of rooster to update",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Update rooster",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/P_rooster"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "rooster"
+                ],
+                "summary": "Delete rooster by ID",
+                "description": "Delete a single rooster",
+                "operationId": "Delete",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of rooster to Delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete rooster",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/definitions/rooster"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "afspraak": {
+            "properties": {
+                "afspraak_id": {
+                    "type": "string"
+                },
+                "persoon_id": {
+                    "type": "string"
+                },
+                "kapper_id": {
+                    "type": "string"
+                },
+                "datum": {
+                    "type": "string"
+                },
+                "totale_prijs": {
+                    "type": "number"
+                },
+                "begin_tijd": {
+                    "type": "string"
+                },
+                "eind_tijd": {
+                    "type": "string"
+                },
+                "totale_tijd": {
+                    "type": "string"
+                }
+            }
+        },
+        "P_afspraak": {
+            "properties": {
+                "persoon_id": {
+                    "type": "string"
+                },
+                "kapper_id": {
+                    "type": "string"
+                },
+                "datum": {
+                    "type": "string"
+                },
+                "totale_prijs": {
+                    "type": "number"
+                },
+                "begin_tijd": {
+                    "type": "string"
+                },
+                "eind_tijd": {
+                    "type": "string"
+                },
+                "totale_tijd": {
+                    "type": "string"
+                }
+            }
+        },
+        "treatment": {
+            "properties": {
+                "behandeling_id": {
+                    "type": "string"
+                },
+                "type_behandeling": {
+                    "type": "string"
+                },
+                "behandelduur": {
+                    "type": "string"
+                },
+                "prijs": {
+                    "type": "number"
+                }
+            }
+        },
+        "P_treatment": {
+            "properties": {
+                "type_behandeling": {
+                    "type": "string"
+                },
+                "behandelduur": {
+                    "type": "string"
+                },
+                "prijs": {
+                    "type": "number"
+                }
+            }
+        },
+        "barber": {
+            "properties": {
+                "kapper_id": {
+                    "type": "string"
+                },
+                "k_voornaam": {
+                    "type": "string"
+                },
+                "k_achternaam": {
+                    "type": "string"
+                },
+                "k_email": {
+                    "type": "string"
+                },
+                "k_telefoonnummer": {
+                    "type": "number"
+                }
+            }
+        },
+        "P_barber": {
+            "properties": {
+                "k_voornaam": {
+                    "type": "string"
+                },
+                "k_achternaam": {
+                    "type": "string"
+                },
+                "k_email": {
+                    "type": "string"
+                },
+                "k_telefoonnummer": {
+                    "type": "number"
+                }
+            }
+        },
+        "persoon": {
+            "properties": {
+                "persoon_id": {
+                    "type": "string"
+                },
+                "voornaam": {
+                    "type": "string"
+                },
+                "achternaam": {
+                    "type": "string"
+                },
+                "emai": {
+                    "type": "string"
+                },
+                "telefoonnummer": {
+                    "type": "number"
+                }
+            }
+        },"P_persoon": {
+            "properties": {
+                "voornaam": {
+                    "type": "string"
+                },
+                "achternaam": {
+                    "type": "string"
+                },
+                "emai": {
+                    "type": "string"
+                },
+                "telefoonnummer": {
+                    "type": "number"
+                }
+            }
+        },
+        "rooster": {
+            "properties": {
+                "rooster_id": {
+                    "type": "string"
+                },
+                "kapper_id": {
+                    "type": "string"
+                },
+                "k_tijdbegin": {
+                    "type": "string"
+                },
+                "k_eindtijd": {
+                    "type": "string"
+                }
+            }
+        },"P_rooster": {
+            "properties": {
+                "kapper_id": {
+                    "type": "string"
+                },
+                "k_tijdbegin": {
+                    "type": "string"
+                },
+                "k_eindtijd": {
+                    "type": "string"
+                }
             }
         }
     }
